@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Greeting Card</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/monic.jpg');
+            background-size: cover;
+            /* Ensures the image covers the whole screen */
+            background-position: center;
+            /* Centers the image */
+            color: #4A154B;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .card {
+            text-align: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .card h1 {
+            font-size: 2.5em;
+            color: #ff6f61;
+            margin-bottom: 10px;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61;
+            }
+
+            to {
+                text-shadow: 0 0 20px #ff9a9e, 0 0 30px #ff9a9e;
+            }
+        }
+
+        .card button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .card button:hover {
+            transform: scale(1.1);
+            background: #ff9a9e;
+        }
+
+        .story {
+            margin-top: 20px;
+        }
+
+        .story p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>For My Love <br> Monica ❤️</h1>
+        <p>Click the button below to begin a special journey I've created just for you.</p>
+        <button onclick="startStory()">Start Story</button>
+
+        <div class="story" id="story" style="display: none;">
+            <p id="story-text">Once upon a time, there was a boy who met the most amazing girl...</p>
+            <button id="next-button" onclick="showStoryPart('start')">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const story = {
+            "start": {
+                text: "In the bustling streets of Florence, Monica lived a life full of art and dreams. Her days were spent painting vivid landscapes and enchanting portraits, capturing the beauty of the world around her. But as vibrant as her work was, she often felt there was a missing piece—a spark she couldn’t quite name.",
+                next: "frank"
+            },
+            "frank": {
+                text: "Frank, on the other hand, was an architect who had just moved to Florence for a big project. His work revolved around building things, but his heart had grown weary of solitude. Beneath his confident demeanor lay a longing for something real, something profound.",
+                next: "first-meeting"
+            },
+            "first-meeting": {
+                text: "One crisp autumn afternoon, Monica decided to set up her easel by the riverbank. The golden leaves danced in the breeze, and the Arno River shimmered under the sun. Lost in her work, she didn’t notice the man standing a few feet away, mesmerized by her painting. ‘Your art,’ he finally said, breaking the silence, ‘captures what words fail to express.’",
+                next: "connection"
+            },
+            "connection": {
+                text: "The conversation began and soon Monica and Frank found themselves meeting regularly at the riverbank. They shared their passions and dreams—Monica showed Frank how to paint, while he taught her about architecture. Their connection grew effortlessly, like a melody that didn’t need words.",
+                next: "hidden-garden"
+            },
+            "hidden-garden": {
+                text: "One evening, as the city lights glowed and the stars lit up the sky, Frank led Monica to a hidden garden he had discovered. In the center stood a gazebo he had designed as part of his project. ‘This is for you,’ he said softly. ‘A place where your art and your light can shine.’",
+                next: "the-kiss"
+            },
+            "the-kiss": {
+                text: "Under the starlit sky, with the soft hum of the city in the distance, they shared their first kiss—a moment that felt like the culmination of their serendipitous journey. Their love became a blend of art and architecture, a perfect harmony.",
+                next: "forever"
+            },
+            "forever": {
+                text: "Years later, the gazebo became a symbol of their love, where they held hands through life’s seasons. Monica’s art adorned its walls, and Frank’s architectural sketches were framed alongside them—a perfect blend of their worlds. Their story was a testament to the magic of love found when least expected.Frank will forever Love you Monica",
+
+                next: null
+            }
+        };
+
+        function startStory() {
+            const storyDiv = document.getElementById('story');
+            storyDiv.style.display = 'block';
+            showStoryPart("start");
+        }
+
+        function showStoryPart(part) {
+            const storyText = document.getElementById('story-text');
+            const nextButton = document.getElementById('next-button');
+
+            storyText.textContent = story[part].text;
+
+            if (story[part].next) {
+                nextButton.onclick = () => showStoryPart(story[part].next);
+                nextButton.style.display = 'inline-block';
+            } else {
+                nextButton.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

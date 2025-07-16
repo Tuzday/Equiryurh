@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For The Love of My Life</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&family=Sacramento&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0a0a1a url('https://source.unsplash.com/random/1920x1080/?starry+night') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 26, 0.7);
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 90%;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: rgba(20, 20, 40, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            animation: glow 8s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(255, 107, 139, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 107, 139, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(255, 107, 139, 0.3); }
+        }
+        
+        h1 {
+            font-family: 'Sacramento', cursive;
+            font-size: 5rem;
+            color: #ff6b8b;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out, float 4s ease-in-out infinite;
+        }
+        
+        .date {
+            font-size: 1.5rem;
+            color: #ffb8cb;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease-in-out 0.5s both;
+        }
+        
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+            font-size: 24px;
+            color: #ff6b8b;
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        /* Slideshow */
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 2s ease-in-out 1s both;
+        }
+        
+        .slide {
+            display: none;
+            width: 100%;
+            transition: opacity 1s ease;
+        }
+        
+        .slide.active {
+            display: block;
+            animation: fadeInOut 5s infinite;
+        }
+        
+        .slide img {
+            width: 100%;
+            border-radius: 15px;
+            display: block;
+        }
+        
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        /* Love letter */
+        .love-letter {
+            background: linear-gradient(135deg, rgba(255, 107, 139, 0.2), rgba(255, 184, 203, 0.2));
+            border: 1px solid rgba(255, 107, 139, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+        
+        .love-letter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper.png');
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .love-letter h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffb8cb;
+        }
+        
+        .letter-content {
+            text-align: left;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            min-height: 200px; /* Ensure space for the text */
+        }
+        
+        .letter-content p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Interactive elements */
+        .interactive-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        
+        .interactive-box {
+            background: rgba(255, 107, 139, 0.1);
+            border: 1px solid rgba(255, 107, 139, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem;
+            width: 250px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .interactive-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 107, 139, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.3);
+        }
+        
+        .interactive-box h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ffb8cb;
+            margin-bottom: 1rem;
+        }
+        
+        /* Love meter */
+        .love-meter {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .love-level {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #ff6b8b, #ffb8cb);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+        
+        /* Heartbeat */
+        .heartbeat {
+            font-size: 3rem;
+            color: #ff6b8b;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Date counter */
+        .date-counter {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        
+        .date-counter span {
+            font-weight: bold;
+            color: #ffb8cb;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: #ffb8cb;
+            animation: fadeIn 2s ease-in-out 1.5s both;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff6b8b;
+            margin-top: 1rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        /* Petals */
+        .petal {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+        }
+        
+        /* Stars */
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .interactive-box {
+                width: 100%;
+                margin: 1rem 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .love-letter h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <!-- Create stars -->
+    <script>
+        // Create stars
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = `${Math.random() * 3 + 1}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+            document.body.appendChild(star);
+        }
+    </script>
+    
+    <div class="container">
+        <h1>Happy Birthday, My Love</h1>
+        <div class="date">August 25th - The Day My World Became Brighter</div>
+        
+        <!-- Slideshow of memories -->
+        <div class="slideshow" id="slideshow">
+            <!-- Replace these with your photos and captions -->
+            <div class="slide active">
+                <img src="monic.jpg" alt="Our Memory">
+                <div class="caption">The day we first met</div>
+            </div>
+            <div class="slide">
+                <img src="monic.jpg" alt="Our Memory">
+                <div class="caption">Our first vacation together</div>
+            </div>
+            <div class="slide">
+                <img src="monic.jpg" alt="Our Memory">
+                <div class="caption">Celebrating our anniversary</div>
+            </div>
+            <div class="slide">
+                <img src="monic.jpg" alt="Our Memory">
+                <div class="caption">When you make me laugh</div>
+            </div>
+        </div>
+        
+        <!-- Love letter -->
+        <div class="love-letter" id="loveLetter">
+            <h2>My Dearest Love</h2>
+            <div class="letter-content" id="letterContent">
+                <!-- The letter will be typed out by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Interactive section -->
+        <div class="interactive-section">
+            <div class="interactive-box" id="petalsBox">
+                <h3>For You</h3>
+                <p>Click here to make rose petals fall</p>
+                <div class="heartbeat">❤</div>
+            </div>
+            
+            <div class="interactive-box" id="loveMeterBox">
+                <h3>Our Love</h3>
+                <p>How much do I love you?</p>
+                <div class="love-meter">
+                    <div class="love-level" id="loveLevel"></div>
+                </div>
+            </div>
+            
+            <div class="interactive-box" id="musicBox">
+                <h3>Our Song</h3>
+                <p id="songStatus">Loading your song...</p>
+                <div class="heartbeat">♪</div>
+            </div>
+        </div>
+        
+        <!-- Date counter -->
+        <div class="date-counter">
+            We've been together for <span id="daysTogether">0</span> amazing days
+        </div>
+        
+        <div class="footer">
+            <p>Created with all my love for the most wonderful person I know</p>
+            <div class="signature">Forever Yours</div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts that follow cursor
+        document.addEventListener('mousemove', function(e) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            heart.style.opacity = '1';
+            
+            // Random size and rotation
+            const size = Math.random() * 20 + 10;
+            heart.style.fontSize = size + 'px';
+            const rotation = Math.random() * 360;
+            heart.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+            
+            document.body.appendChild(heart);
+            
+            // Remove heart after animation
+            setTimeout(() => {
+                heart.style.opacity = '0';
+                setTimeout(() => {
+                    heart.remove();
+                }, 300);
+            }, 1000);
+        });
+        
+        // Slideshow functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        // Change slide every 5 seconds
+        setInterval(nextSlide, 5000);
+        
+        // Typewriter effect variables
+        const letterContent = document.getElementById('letterContent');
+        const letterText = [
+            "My darling,",
+            "As I sit here thinking of you on your special day, my heart overflows with love and gratitude for having you in my life.",
+            "From the moment we met, I knew there was something extraordinary about you. Your smile, your laugh, the way your eyes light up when you're happy - these are the things that make my world beautiful.",
+            "Every day with you is a gift I cherish. Through the laughter and the quiet moments, through challenges and celebrations, my love for you only grows stronger.",
+            "Today, on your birthday, I want you to know that you are the most precious person in my life. My heart beats for you, my thoughts are filled with you, and my future is unimaginable without you.",
+            "I promise to love you more each day than I did the day before, to support you in all your dreams, and to be your partner in every adventure life brings our way.",
+            "Happy birthday to the woman who makes my life complete. May this year bring you as much joy as you've brought into my life.",
+            "With all my love, forever and always..."
+        ];
+        
+        let lineIndex = 0;
+        let charIndex = 0;
+        let isTyping = false;
+        let typingTimeout;
+
+        function typeWriter() {
+            if (lineIndex < letterText.length) {
+                if (charIndex === 0) {
+                    if (lineIndex > 0) {
+                        letterContent.innerHTML += '<p></p>';
+                    }
+                    isTyping = true;
+                }
+                
+                const currentP = letterContent.getElementsByTagName('p')[lineIndex];
+                currentP.textContent += letterText[lineIndex].charAt(charIndex);
+                charIndex++;
+                
+                if (charIndex < letterText[lineIndex].length) {
+                    typingTimeout = setTimeout(typeWriter, Math.random() * 30 + 20);
+                } else {
+                    lineIndex++;
+                    charIndex = 0;
+                    typingTimeout = setTimeout(typeWriter, 500);
+                }
+            } else {
+                isTyping = false;
+            }
+        }
+
+        // Reset and start typing when letter is clicked
+        document.getElementById('loveLetter').addEventListener('click', function() {
+            // Clear any existing timeout
+            clearTimeout(typingTimeout);
+            
+            if (!isTyping) {
+                // Reset if already completed
+                if (lineIndex >= letterText.length) {
+                    letterContent.innerHTML = '';
+                    lineIndex = 0;
+                    charIndex = 0;
+                }
+                typeWriter();
+            }
+        });
+        
+        // Rose petals effect
+        document.getElementById('petalsBox').addEventListener('click', function(e) {
+            e.stopPropagation();
+            createPetals();
+        });
+        
+        function createPetals() {
+            const petalColors = ['#ff6b8b', '#ffb8cb', '#ff8e9e', '#ffd3b6'];
+            const petalShapes = ['🌸', '🌹', '🥀', '💮', '🏵️'];
+            
+            for (let i = 0; i < 50; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // Random properties
+                const size = Math.random() * 30 + 20;
+                const color = petalColors[Math.floor(Math.random() * petalColors.length)];
+                const shape = petalShapes[Math.floor(Math.random() * petalShapes.length)];
+                const duration = Math.random() * 5 + 3;
+                const delay = Math.random() * 2;
+                const startX = Math.random() * 100;
+                const rotation = Math.random() * 360;
+                
+                // Set styles
+                petal.innerHTML = shape;
+                petal.style.fontSize = `${size}px`;
+                petal.style.color = color;
+                petal.style.left = `${startX}vw`;
+                petal.style.top = '-50px';
+                petal.style.opacity = '0.8';
+                petal.style.transform = `rotate(${rotation}deg)`;
+                petal.style.animation = `fall ${duration}s linear ${delay}s forwards`;
+                
+                // Keyframes for falling
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes fall {
+                        to {
+                            top: 120vh;
+                            left: ${startX + (Math.random() * 40 - 20)}vw;
+                            opacity: 0;
+                            transform: rotate(${rotation + 360}deg);
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                document.body.appendChild(petal);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    petal.remove();
+                    style.remove();
+                }, (duration + delay) * 1000);
+            }
+        }
+        
+        // Love meter
+        document.getElementById('loveMeterBox').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const loveLevel = document.getElementById('loveLevel');
+            loveLevel.style.width = '100%';
+            loveLevel.innerHTML = 'INFINITE';
+        });
+        
+        // Music player with autoplay attempt
+        let audio = null;
+        let isPlaying = false;
+        const songStatus = document.getElementById('songStatus');
+        const musicBox = document.getElementById('musicBox');
+        
+        function initAudio() {
+            audio = new Audio();
+            audio.src = 'Jax_Like_My_Father.mp3'; // Make sure this file exists in your directory
+            audio.loop = true;
+            
+            // Try to autoplay
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Autoplay worked
+                    musicBox.querySelector('.heartbeat').textContent = '♫';
+                    songStatus.textContent = "Playing: 'Just Like My Father'";
+                    isPlaying = true;
+                })
+                .catch(error => {
+                    // Autoplay was prevented
+                    songStatus.textContent = "Click to play 'Just Like My Father'";
+                    console.log("Autoplay prevented, waiting for user interaction");
+                });
+            }
+        }
+        
+        // Click handler for music box
+        musicBox.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            if (!audio) {
+                initAudio();
+                return;
+            }
+            
+            if (isPlaying) {
+                audio.pause();
+                this.querySelector('.heartbeat').textContent = '♪';
+                songStatus.textContent = "Click to play 'Just Like My Father'";
+                isPlaying = false;
+            } else {
+                audio.play()
+                    .then(() => {
+                        this.querySelector('.heartbeat').textContent = '♫';
+                        songStatus.textContent = "Playing: 'Just Like My Father'";
+                        isPlaying = true;
+                    })
+                    .catch(error => {
+                        console.error("Playback failed:", error);
+                        songStatus.textContent = "Click to allow playback";
+                        setTimeout(() => {
+                            songStatus.textContent = "Tap again to play";
+                        }, 1000);
+                    });
+            }
+        });
+        
+        // Initialize audio when page loads
+        window.addEventListener('load', function() {
+            initAudio();
+            setTimeout(createPetals, 1000);
+            setTimeout(createPetals, 3000);
+            
+            // Also try to play after any user interaction
+            document.addEventListener('click', function firstInteraction() {
+                if (!isPlaying && audio) {
+                    audio.play()
+                        .then(() => {
+                            musicBox.querySelector('.heartbeat').textContent = '♫';
+                            songStatus.textContent = "Playing: 'Just Like My Father'";
+                            isPlaying = true;
+                        })
+                        .catch(e => console.log("Still couldn't autoplay:", e));
+                }
+                document.removeEventListener('click', firstInteraction);
+            });
+        });
+        
+        // Calculate days together
+        function calculateDaysTogether() {
+            const anniversary = new Date('2024-02-04'); // Replace with your date
+            const today = new Date();
+            const diffTime = today - anniversary;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('daysTogether').textContent = diffDays;
+        }
+        
+        calculateDaysTogether();
+    </script>
+</body>
+</html>
